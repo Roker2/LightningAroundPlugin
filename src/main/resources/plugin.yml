@@ -1,0 +1,4 @@
+name: Lightning
+version: '1.0-SNAPSHOT'
+main: pl.roker2.lightning.Lightning
+api-version: '1.21'
