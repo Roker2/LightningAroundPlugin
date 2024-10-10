@@ -1,17 +1,25 @@
 package pl.roker2.lightning;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
 
 public final class Lightning extends JavaPlugin {
+    BukkitTask task = null;
+    static final long n = 5L; // seconds
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-
+        BukkitScheduler scheduler = Bukkit.getScheduler();
+        task = scheduler.runTaskTimer(this,
+                RandomLightningCaster::castLightning,
+                0L, 20L * n);
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        if (task != null)
+            task.cancel();
     }
 }
