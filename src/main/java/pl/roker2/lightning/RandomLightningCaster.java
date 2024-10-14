@@ -3,13 +3,18 @@ package pl.roker2.lightning;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Random;
 
 public class RandomLightningCaster {
-    final static int radius = 10;
+    int radius;
 
-    public static void castLightning() {
+    RandomLightningCaster(JavaPlugin plugin) {
+        radius = plugin.getConfig().getInt("radius");
+    }
+
+    public void castLightning() {
         Player player = RandomPlayerPicker.getRandomPlayer();
         if (player != null) {
             World world = player.getWorld();
@@ -18,7 +23,7 @@ public class RandomLightningCaster {
         }
     }
 
-    static Location getRandomPositionAroundPlayer(Player player) {
+    Location getRandomPositionAroundPlayer(Player player) {
         Location location = player.getLocation();
         int newX = getRandom(location.getBlockX() - radius,
                 location.getBlockX() + radius);
