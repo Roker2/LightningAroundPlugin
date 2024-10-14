@@ -8,11 +8,14 @@ import org.bukkit.scheduler.BukkitTask;
 
 public final class Lightning extends JavaPlugin {
     BukkitTask task = null;
-    static final long n = 5L; // seconds
+    long n = 5L; // seconds
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
+
+        n = getConfig().getLong("seconds");
+
         BukkitScheduler scheduler = Bukkit.getScheduler();
         task = scheduler.runTaskTimer(this,
                 RandomLightningCaster::castLightning,
