@@ -1,6 +1,7 @@
 package pl.roker2.lightning;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
@@ -11,6 +12,7 @@ public final class Lightning extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
         BukkitScheduler scheduler = Bukkit.getScheduler();
         task = scheduler.runTaskTimer(this,
                 RandomLightningCaster::castLightning,
@@ -21,5 +23,12 @@ public final class Lightning extends JavaPlugin {
     public void onDisable() {
         if (task != null)
             task.cancel();
+    }
+
+    private void generateDefaultConfig() {
+        FileConfiguration config = getConfig();
+        config.addDefault("seconds", 5L);
+        config.addDefault("radius", 10);
+        saveDefaultConfig();
     }
 }
